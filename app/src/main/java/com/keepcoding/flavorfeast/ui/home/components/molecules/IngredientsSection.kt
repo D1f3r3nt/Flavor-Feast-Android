@@ -13,7 +13,7 @@ import com.keepcoding.flavorfeast.ui.home.components.atoms.SearchIngredient
 @Composable
 fun IngredientsSection() {
 
-    val elements = listOf("Patata", "Pelotas")
+    val elements = emptyList<String>()
 
     Column(
         modifier = Modifier
@@ -21,8 +21,6 @@ fun IngredientsSection() {
             .padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        SectionTitle(text = "Ingredients")
-
         SearchIngredient(value = "", onValueChange = {})
 
         ShowFind(elements = elements)

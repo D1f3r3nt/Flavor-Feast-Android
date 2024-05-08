@@ -13,7 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import com.keepcoding.flavorfeast.ui.home.HomeScreen
 import com.keepcoding.flavorfeast.ui.navigation.Navigation
 import com.keepcoding.flavorfeast.ui.navigation.NavigationController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
