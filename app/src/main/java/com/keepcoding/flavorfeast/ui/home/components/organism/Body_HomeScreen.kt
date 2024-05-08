@@ -9,8 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
+import com.keepcoding.flavorfeast.model.CategoryUI
 import com.keepcoding.flavorfeast.model.MealUI
 import com.keepcoding.flavorfeast.model.enums.LoadingState
 import com.keepcoding.flavorfeast.model.enums.ViewState
@@ -24,6 +23,8 @@ import com.keepcoding.flavorfeast.ui.home.components.molecules.RandomSection
 fun Body_HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel) {
     val randomMeal: MealUI? by viewModel.randomMeal.collectAsState()
     val randomState: ViewState by viewModel.randomState.collectAsState()
+    val categories: List<CategoryUI> by viewModel.categories.collectAsState()
+    val categoriesState: ViewState by viewModel.categoriesState.collectAsState()
     
     LazyColumn(
         modifier = modifier,
@@ -44,7 +45,10 @@ fun Body_HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel) {
         }
 
         item {
-            CategorySection()
+            CategorySection(
+                categories = categories,
+                isLoading = categoriesState is LoadingState
+            )
         }
 
         item {
