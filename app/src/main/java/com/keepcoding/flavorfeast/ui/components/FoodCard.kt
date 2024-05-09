@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -37,7 +38,11 @@ fun FoodCard(
                 .clip(RoundedCornerShape(12.dp))
                 .size(120.dp)
         ) {
-            Image(painter = painter, contentDescription = null)
+            Image(
+                painter = painter, 
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
         }
 
         Text(

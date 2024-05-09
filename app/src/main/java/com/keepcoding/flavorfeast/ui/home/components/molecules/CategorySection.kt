@@ -44,7 +44,9 @@ fun CategorySection(isLoading: Boolean, categories: List<CategoryUI>) {
                 )
             }
         } else {
-            LazyRow {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
                 items(categories) {
                     FoodCard(
                         painter = rememberAsyncImagePainter(it.image),

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.keepcoding.flavorfeast.data.RepositoryInterface
 import com.keepcoding.flavorfeast.model.CategoryUI
 import com.keepcoding.flavorfeast.model.MealUI
+import com.keepcoding.flavorfeast.model.SingleAreaUI
 import com.keepcoding.flavorfeast.model.enums.BadRequestException
 import com.keepcoding.flavorfeast.model.enums.ErrorState
 import com.keepcoding.flavorfeast.model.enums.IdleState
@@ -26,14 +27,19 @@ class HomeViewModel @Inject constructor(
     private val _randomMeal = MutableStateFlow<MealUI?>(null)
     private val _categoriesState = MutableStateFlow<ViewState>(IdleState())
     private val _categories = MutableStateFlow<List<CategoryUI>>(emptyList())
+    private val _areasState = MutableStateFlow<ViewState>(IdleState())
+    private val _areas = MutableStateFlow<List<SingleAreaUI>>(emptyList())
     
     val randomState: StateFlow<ViewState> = _randomState
     val randomMeal: StateFlow<MealUI?> = _randomMeal
     val categoriesState: StateFlow<ViewState> = _categoriesState
     val categories: StateFlow<List<CategoryUI>> = _categories
+    val areasState: StateFlow<ViewState> = _areasState
+    val areas: StateFlow<List<SingleAreaUI>> = _areas
     
     init {
         getAllCategories()
+        getAllAreas()
     }
     
     fun getRandomMeal() {
@@ -79,6 +85,29 @@ class HomeViewModel @Inject constructor(
             }
 
             _categoriesState.value = IdleState()
+        }
+    }
+
+    fun getAllAreas() {
+        viewModelScope.launch {
+            _areasState.value = LoadingState()
+
+            val result = repository.getAllAreas()
+
+            try {
+                val areas: List<SingleAreaUI> = result.getOrThrow()
+
+                _areas.value = areas
+
+            } catch (_: BadRequestException) {
+                _areasState.value = ErrorState("Error with the request")
+            } catch (_: NoDataException) {
+                _areasState.value = ErrorState("No data in the response")
+            } catch (_ : Exception) {
+                _areasState.value = ErrorState("Something went wrong")
+            }
+
+            _areasState.value = IdleState()
         }
     }
 }
