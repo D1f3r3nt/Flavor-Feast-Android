@@ -2,6 +2,7 @@ package com.keepcoding.flavorfeast.data.network
 
 import com.keepcoding.flavorfeast.data.network.api.MealApi
 import com.keepcoding.flavorfeast.model.CategoryRemote
+import com.keepcoding.flavorfeast.model.IngredientsRemote
 import com.keepcoding.flavorfeast.model.MealRemote
 import com.keepcoding.flavorfeast.model.SingleAreaRemote
 import com.keepcoding.flavorfeast.model.enums.BadRequestException
@@ -42,6 +43,20 @@ class NetworkDataSource @Inject constructor(
 
     override suspend fun getAllAreas(): Result<List<SingleAreaRemote>> {
         val response = api.getAllAreas()
+
+        if (response.isSuccessful) {
+            response.body()?.meals?.let {
+                return Result.success(it)
+            }
+
+            return Result.failure(NoDataException())
+        } else {
+            return Result.failure(BadRequestException(response.code()))
+        }
+    }
+
+    override suspend fun getAllIngredients(): Result<List<IngredientsRemote>> {
+        val response = api.getAllIngredients()
 
         if (response.isSuccessful) {
             response.body()?.meals?.let {

@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,7 +23,11 @@ import com.keepcoding.flavorfeast.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchIngredient(value: String, onValueChange: (String) -> Unit) {
+fun SearchIngredient(
+    value: String, 
+    onValueChange: (String) -> Unit,
+    onFocus: (FocusState) -> Unit = {}
+) {
     
     OutlinedTextField(
         value = value,
@@ -38,7 +44,9 @@ fun SearchIngredient(value: String, onValueChange: (String) -> Unit) {
             unfocusedTrailingIconColor = colorResource(R.color.black_green),
         ),
         textStyle = LocalTextStyle.current.copy(fontSize = 17.sp),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .onFocusEvent(onFocus),
         shape = RoundedCornerShape(24.dp),
         singleLine = true,
         maxLines = 1,

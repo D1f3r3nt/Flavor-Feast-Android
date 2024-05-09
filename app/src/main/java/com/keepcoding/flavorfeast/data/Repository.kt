@@ -2,6 +2,7 @@ package com.keepcoding.flavorfeast.data
 
 import com.keepcoding.flavorfeast.data.network.NetworkDataSourceInterface
 import com.keepcoding.flavorfeast.model.CategoryUI
+import com.keepcoding.flavorfeast.model.IngredientsUI
 import com.keepcoding.flavorfeast.model.MealUI
 import com.keepcoding.flavorfeast.model.SingleAreaUI
 import com.keepcoding.flavorfeast.model.toUI
@@ -39,5 +40,15 @@ class Repository @Inject constructor(
         }.toUI()
 
         return Result.success(categories)
+    }
+
+    override suspend fun getAllIngredients() : Result<List<IngredientsUI>> {
+        val result = networkDataSource.getAllIngredients()
+
+        val ingredients = result.getOrElse {
+            return Result.failure(it)
+        }.toUI()
+
+        return Result.success(ingredients)
     }
 }

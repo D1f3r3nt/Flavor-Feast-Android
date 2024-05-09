@@ -9,10 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.keepcoding.flavorfeast.model.IngredientsUI
 import com.keepcoding.flavorfeast.ui.home.components.atoms.FindRow
 
 @Composable
-fun ShowFind(elements: List<Any>) {
+fun ShowFind(elements: List<IngredientsUI>) {
     
     Column(
         modifier = Modifier
@@ -28,7 +29,7 @@ fun ShowFind(elements: List<Any>) {
                 }
 
                 FindRow(
-                    text = it as String,
+                    text = it.name,
                     modifier = Modifier.clip(
                         RoundedCornerShape(
                             topStart = if (index == 0) { 12.dp } else { 0.dp },

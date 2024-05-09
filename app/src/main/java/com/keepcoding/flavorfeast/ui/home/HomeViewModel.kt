@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keepcoding.flavorfeast.data.RepositoryInterface
 import com.keepcoding.flavorfeast.model.CategoryUI
+import com.keepcoding.flavorfeast.model.IngredientsUI
 import com.keepcoding.flavorfeast.model.MealUI
 import com.keepcoding.flavorfeast.model.SingleAreaUI
 import com.keepcoding.flavorfeast.model.enums.BadRequestException
@@ -29,6 +30,8 @@ class HomeViewModel @Inject constructor(
     private val _categories = MutableStateFlow<List<CategoryUI>>(emptyList())
     private val _areasState = MutableStateFlow<ViewState>(IdleState())
     private val _areas = MutableStateFlow<List<SingleAreaUI>>(emptyList())
+    private val _ingredientsState = MutableStateFlow<ViewState>(IdleState())
+    private val _ingredients = MutableStateFlow<List<IngredientsUI>>(emptyList())
     
     val randomState: StateFlow<ViewState> = _randomState
     val randomMeal: StateFlow<MealUI?> = _randomMeal
@@ -36,6 +39,8 @@ class HomeViewModel @Inject constructor(
     val categories: StateFlow<List<CategoryUI>> = _categories
     val areasState: StateFlow<ViewState> = _areasState
     val areas: StateFlow<List<SingleAreaUI>> = _areas
+    val ingredientsState: StateFlow<ViewState> = _ingredientsState
+    val ingredients: StateFlow<List<IngredientsUI>> = _ingredients
     
     init {
         getAllCategories()
@@ -52,7 +57,7 @@ class HomeViewModel @Inject constructor(
                 val meal: MealUI = result.getOrThrow()
 
                 _randomMeal.value = meal
-                
+                _randomState.value = IdleState()
             } catch (_: BadRequestException) {
                 _randomState.value = ErrorState("Error with the request")
             } catch (_: NoDataException) {
@@ -61,7 +66,6 @@ class HomeViewModel @Inject constructor(
                 _randomState.value = ErrorState("Something went wrong")
             }
             
-            _randomState.value = IdleState()
         }
     }
 
@@ -75,7 +79,7 @@ class HomeViewModel @Inject constructor(
                 val categories: List<CategoryUI> = result.getOrThrow()
 
                 _categories.value = categories
-
+                _categoriesState.value = IdleState()
             } catch (_: BadRequestException) {
                 _categoriesState.value = ErrorState("Error with the request")
             } catch (_: NoDataException) {
@@ -84,7 +88,6 @@ class HomeViewModel @Inject constructor(
                 _categoriesState.value = ErrorState("Something went wrong")
             }
 
-            _categoriesState.value = IdleState()
         }
     }
 
@@ -98,7 +101,7 @@ class HomeViewModel @Inject constructor(
                 val areas: List<SingleAreaUI> = result.getOrThrow()
 
                 _areas.value = areas
-
+                _areasState.value = IdleState()
             } catch (_: BadRequestException) {
                 _areasState.value = ErrorState("Error with the request")
             } catch (_: NoDataException) {
@@ -106,8 +109,29 @@ class HomeViewModel @Inject constructor(
             } catch (_ : Exception) {
                 _areasState.value = ErrorState("Something went wrong")
             }
+            
+        }
+    }
 
-            _areasState.value = IdleState()
+    fun getAllIngredients() {
+        viewModelScope.launch {
+            _ingredientsState.value = LoadingState()
+
+            val result = repository.getAllIngredients()
+
+            try {
+                val ingredients: List<IngredientsUI> = result.getOrThrow()
+
+                _ingredients.value = ingredients
+                _ingredientsState.value = IdleState()
+            } catch (_: BadRequestException) {
+                _ingredientsState.value = ErrorState("Error with the request")
+            } catch (_: NoDataException) {
+                _ingredientsState.value = ErrorState("No data in the response")
+            } catch (_ : Exception) {
+                _ingredientsState.value = ErrorState("Something went wrong")
+            }
+            
         }
     }
 }
