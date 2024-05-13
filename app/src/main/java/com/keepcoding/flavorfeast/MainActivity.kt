@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.keepcoding.flavorfeast.ui.details.DetailScreen
 import com.keepcoding.flavorfeast.ui.gallery.GalleryScreen
 import com.keepcoding.flavorfeast.ui.home.HomeScreen
 import com.keepcoding.flavorfeast.ui.navigation.Navigation
@@ -43,6 +44,15 @@ class MainActivity : ComponentActivity() {
                         },
                     )) {
                         GalleryScreen(it)
+                    }
+
+                    composable(Navigation.DETAIL_ROUTE, arguments = listOf(
+                        navArgument(Navigation.DETAIL.ARG_ID_MEAL) {
+                            nullable = false
+                            type = NavType.StringType
+                        },
+                    )) {
+                        DetailScreen(it)
                     }
                 }
             }

@@ -15,4 +15,5 @@ interface NetworkDataSourceInterface {
     suspend fun getByCategory(category: String): Result<List<SingleMealRemote>>
     suspend fun getByArea(area: String): Result<List<SingleMealRemote>>
     suspend fun getByIngredient(ingredient: String): Result<List<SingleMealRemote>>
+    suspend fun getByID(id: String): Result<MealRemote>
 }

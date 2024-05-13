@@ -20,9 +20,13 @@ import coil.compose.rememberAsyncImagePainter
 import com.keepcoding.flavorfeast.R
 import com.keepcoding.flavorfeast.model.MealUI
 import com.keepcoding.flavorfeast.ui.components.FoodCard
+import com.keepcoding.flavorfeast.ui.navigation.Navigation
+import com.keepcoding.flavorfeast.ui.navigation.NavigationController
 
 @Composable
 fun RandomSection(meal: MealUI?, isLoading: Boolean, onClick: () -> Unit) {
+    val navController = NavigationController.controller()
+    
     Column(
         modifier = Modifier
             .background(colorResource(R.color.turquoise))
@@ -39,7 +43,9 @@ fun RandomSection(meal: MealUI?, isLoading: Boolean, onClick: () -> Unit) {
             },
             text = meal?.name ?: "???",
             onClick = {
-                // TODO: Navigate to detail
+                if (meal != null) {
+                    navController.navigate(Navigation.DETAIL.createRouteWithArgs(meal.id))
+                }
             }
         )
 

@@ -68,7 +68,7 @@ data class MealRemote(
     val strMeasure18: String?,
     val strMeasure19: String?,
     val strMeasure20: String?,
-    val strSource: String,
+    val strSource: String?,
     val strImageSource: String?,
     val strCreativeCommonsConfirmed: String?,
     val dateModified: String?,
@@ -116,6 +116,10 @@ fun MealRemote.toUI(): MealUI {
         tags,
         this.strYoutube,
         elements,
-        this.strSource
+        this.strSource ?: ""
     )
+}
+
+fun List<MealRemote>.toUI(): List<MealUI> {
+    return this.map { it.toUI() }
 }

@@ -111,4 +111,18 @@ class NetworkDataSource @Inject constructor(
             return Result.failure(BadRequestException(response.code()))
         }
     }
+
+    override suspend fun getByID(id: String): Result<MealRemote> {
+        val response = api.getById(id)
+
+        if (response.isSuccessful) {
+            response.body()?.meals?.let {
+                return Result.success(it[0])
+            }
+
+            return Result.failure(NoDataException())
+        } else {
+            return Result.failure(BadRequestException(response.code()))
+        }
+    }
 }

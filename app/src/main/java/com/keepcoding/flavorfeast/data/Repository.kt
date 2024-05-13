@@ -82,4 +82,14 @@ class Repository @Inject constructor(
 
         return Result.success(meals)
     }
+
+    override suspend fun getById(id: String) : Result<MealUI> {
+        val result = networkDataSource.getByID(id)
+
+        val meals = result.getOrElse {
+            return Result.failure(it)
+        }.toUI()
+
+        return Result.success(meals)
+    }
 }

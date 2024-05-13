@@ -14,6 +14,8 @@ import coil.compose.rememberAsyncImagePainter
 import com.keepcoding.flavorfeast.model.SingleMealUI
 import com.keepcoding.flavorfeast.ui.components.FoodCard
 import com.keepcoding.flavorfeast.ui.gallery.GalleryViewModel
+import com.keepcoding.flavorfeast.ui.navigation.Navigation
+import com.keepcoding.flavorfeast.ui.navigation.NavigationController
 
 @Composable
 fun Body_GalleryScreen(
@@ -21,6 +23,7 @@ fun Body_GalleryScreen(
     viewModel: GalleryViewModel,
 ) {
     
+    val navController = NavigationController.controller()
     val meals: List<SingleMealUI> by viewModel.meals.collectAsState()
     
     LazyVerticalGrid(
@@ -34,7 +37,7 @@ fun Body_GalleryScreen(
                 painter = rememberAsyncImagePainter(meal.image),
                 text = meal.name,
                 onClick = {
-                    // TODO: Navigate to Details
+                    navController.navigate(Navigation.DETAIL.createRouteWithArgs(meal.id))
                 }
             )
         }

@@ -15,4 +15,5 @@ interface RepositoryInterface {
     suspend fun getByCategory(category: String) : Result<List<SingleMealUI>>
     suspend fun getByArea(area: String) : Result<List<SingleMealUI>>
     suspend fun getByIngredient(ingredient: String) : Result<List<SingleMealUI>>
+    suspend fun getById(id: String) : Result<MealUI>
 }
