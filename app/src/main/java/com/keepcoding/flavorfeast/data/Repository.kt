@@ -5,6 +5,7 @@ import com.keepcoding.flavorfeast.model.CategoryUI
 import com.keepcoding.flavorfeast.model.IngredientsUI
 import com.keepcoding.flavorfeast.model.MealUI
 import com.keepcoding.flavorfeast.model.SingleAreaUI
+import com.keepcoding.flavorfeast.model.SingleMealUI
 import com.keepcoding.flavorfeast.model.toUI
 import javax.inject.Inject
 
@@ -50,5 +51,35 @@ class Repository @Inject constructor(
         }.toUI()
 
         return Result.success(ingredients)
+    }
+    
+    override suspend fun getByCategory(category: String) : Result<List<SingleMealUI>> {
+        val result = networkDataSource.getByCategory(category)
+
+        val meals = result.getOrElse {
+            return Result.failure(it)
+        }.toUI()
+
+        return Result.success(meals)
+    }
+
+    override suspend fun getByArea(area: String) : Result<List<SingleMealUI>> {
+        val result = networkDataSource.getByArea(area)
+
+        val meals = result.getOrElse {
+            return Result.failure(it)
+        }.toUI()
+
+        return Result.success(meals)
+    }
+
+    override suspend fun getByIngredient(ingredient: String) : Result<List<SingleMealUI>> {
+        val result = networkDataSource.getByIngredient(ingredient)
+
+        val meals = result.getOrElse {
+            return Result.failure(it)
+        }.toUI()
+
+        return Result.success(meals)
     }
 }

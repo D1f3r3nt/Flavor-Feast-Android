@@ -5,6 +5,7 @@ import com.keepcoding.flavorfeast.model.CategoryRemote
 import com.keepcoding.flavorfeast.model.IngredientsRemote
 import com.keepcoding.flavorfeast.model.MealRemote
 import com.keepcoding.flavorfeast.model.SingleAreaRemote
+import com.keepcoding.flavorfeast.model.SingleMealRemote
 import com.keepcoding.flavorfeast.model.enums.BadRequestException
 import com.keepcoding.flavorfeast.model.enums.NoDataException
 import javax.inject.Inject
@@ -57,6 +58,48 @@ class NetworkDataSource @Inject constructor(
 
     override suspend fun getAllIngredients(): Result<List<IngredientsRemote>> {
         val response = api.getAllIngredients()
+
+        if (response.isSuccessful) {
+            response.body()?.meals?.let {
+                return Result.success(it)
+            }
+
+            return Result.failure(NoDataException())
+        } else {
+            return Result.failure(BadRequestException(response.code()))
+        }
+    }
+    
+    override suspend fun getByCategory(category: String): Result<List<SingleMealRemote>> {
+        val response = api.getByCategory(category)
+
+        if (response.isSuccessful) {
+            response.body()?.meals?.let {
+                return Result.success(it)
+            }
+
+            return Result.failure(NoDataException())
+        } else {
+            return Result.failure(BadRequestException(response.code()))
+        }
+    }
+    
+    override suspend fun getByArea(area: String): Result<List<SingleMealRemote>> {
+        val response = api.getByArea(area)
+
+        if (response.isSuccessful) {
+            response.body()?.meals?.let {
+                return Result.success(it)
+            }
+
+            return Result.failure(NoDataException())
+        } else {
+            return Result.failure(BadRequestException(response.code()))
+        }
+    }
+
+    override suspend fun getByIngredient(ingredient: String): Result<List<SingleMealRemote>> {
+        val response = api.getByIngredient(ingredient)
 
         if (response.isSuccessful) {
             response.body()?.meals?.let {

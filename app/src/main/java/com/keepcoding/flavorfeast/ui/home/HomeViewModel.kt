@@ -69,7 +69,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getAllCategories() {
+    private fun getAllCategories() {
         viewModelScope.launch {
             _categoriesState.value = LoadingState()
 
@@ -91,7 +91,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getAllAreas() {
+    private fun getAllAreas() {
         viewModelScope.launch {
             _areasState.value = LoadingState()
 

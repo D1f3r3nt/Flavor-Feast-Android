@@ -10,10 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.keepcoding.flavorfeast.model.IngredientsUI
+import com.keepcoding.flavorfeast.model.enums.GalleryTypes
 import com.keepcoding.flavorfeast.ui.home.components.atoms.FindRow
+import com.keepcoding.flavorfeast.ui.navigation.Navigation
+import com.keepcoding.flavorfeast.ui.navigation.NavigationController
 
 @Composable
 fun ShowFind(elements: List<IngredientsUI>) {
+    
+    val navController = NavigationController.controller()
     
     Column(
         modifier = Modifier
@@ -39,7 +44,7 @@ fun ShowFind(elements: List<IngredientsUI>) {
                         )
                     ),
                     onClick = {
-                        
+                        navController.navigate(Navigation.GALLERY.createRouteWithArgs(GalleryTypes.INGREDIENTS, it.name))
                     }
                 )
             }
