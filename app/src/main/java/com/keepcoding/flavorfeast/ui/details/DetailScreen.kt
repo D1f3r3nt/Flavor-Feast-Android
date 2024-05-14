@@ -33,7 +33,7 @@ fun DetailScreen(
     DetailGateway.gateway(args, viewModel)
 
     Scaffold(
-        topBar = { AppBar_DetailScreen() }
+        topBar = { AppBar_DetailScreen(viewModel = viewModel) }
     ) {
         when (mealState) {
             is LoadingState -> {
