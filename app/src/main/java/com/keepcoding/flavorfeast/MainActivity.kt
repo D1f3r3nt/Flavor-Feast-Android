@@ -17,6 +17,7 @@ import com.keepcoding.flavorfeast.ui.gallery.GalleryScreen
 import com.keepcoding.flavorfeast.ui.home.HomeScreen
 import com.keepcoding.flavorfeast.ui.navigation.Navigation
 import com.keepcoding.flavorfeast.ui.navigation.NavigationController
+import com.keepcoding.flavorfeast.ui.search.SearchScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,10 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController, startDestination = Navigation.HOME_ROUTE) {
                     composable(Navigation.HOME_ROUTE) {
                         HomeScreen()
+                    }
+
+                    composable(Navigation.SEARCH_ROUTE) {
+                        SearchScreen()
                     }
                     
                     composable(Navigation.GALLERY_ROUTE, arguments = listOf(

@@ -6,6 +6,7 @@ import com.keepcoding.flavorfeast.data.network.response.GetAllIngredientsRespons
 import com.keepcoding.flavorfeast.data.network.response.GetByAreaResponse
 import com.keepcoding.flavorfeast.data.network.response.GetByCategoryResponse
 import com.keepcoding.flavorfeast.data.network.response.GetByIdResponse
+import com.keepcoding.flavorfeast.data.network.response.GetByNameResponse
 import com.keepcoding.flavorfeast.data.network.response.GetRandomResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -36,4 +37,7 @@ interface MealApi {
     
     @GET("/api/json/v1/1/lookup.php")
     suspend fun getById(@Query("i") id: String): Response<GetByIdResponse>
+
+    @GET("/api/json/v1/1/search.php")
+    suspend fun getByName(@Query("s") searchText: String): Response<GetByNameResponse>
 }

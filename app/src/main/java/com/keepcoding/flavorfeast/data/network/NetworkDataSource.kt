@@ -125,4 +125,18 @@ class NetworkDataSource @Inject constructor(
             return Result.failure(BadRequestException(response.code()))
         }
     }
+
+    override suspend fun getByName(searchText: String): Result<List<MealRemote>> {
+        val response = api.getByName(searchText)
+
+        if (response.isSuccessful) {
+            response.body()?.meals?.let {
+                return Result.success(it)
+            }
+
+            return Result.success(emptyList())
+        } else {
+            return Result.failure(BadRequestException(response.code()))
+        }
+    }
 }

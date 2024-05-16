@@ -13,15 +13,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.keepcoding.flavorfeast.R
+import com.keepcoding.flavorfeast.ui.navigation.Navigation
+import com.keepcoding.flavorfeast.ui.navigation.NavigationController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppBar_HomeScreen(actionOnClick: () -> Unit) {
+fun AppBar_HomeScreen() {
+    val navController = NavigationController.controller()
+    
     TopAppBar(
         title = {},
         colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = colorResource(R.color.black_green)),
         actions = {
-            IconButton(onClick = actionOnClick) {
+            IconButton(
+                onClick = {
+                    navController.navigate(Navigation.SEARCH.route)
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,

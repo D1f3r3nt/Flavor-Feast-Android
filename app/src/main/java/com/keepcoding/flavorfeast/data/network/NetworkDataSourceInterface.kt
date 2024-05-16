@@ -16,4 +16,5 @@ interface NetworkDataSourceInterface {
     suspend fun getByArea(area: String): Result<List<SingleMealRemote>>
     suspend fun getByIngredient(ingredient: String): Result<List<SingleMealRemote>>
     suspend fun getByID(id: String): Result<MealRemote>
+    suspend fun getByName(searchText: String): Result<List<MealRemote>>
 }

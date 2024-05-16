@@ -92,4 +92,14 @@ class Repository @Inject constructor(
 
         return Result.success(meals)
     }
+
+    override suspend fun getByName(searchText: String) : Result<List<MealUI>> {
+        val result = networkDataSource.getByName(searchText)
+
+        val meals = result.getOrElse {
+            return Result.failure(it)
+        }.toUI()
+
+        return Result.success(meals)
+    }
 }
