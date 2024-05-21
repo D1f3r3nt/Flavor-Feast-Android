@@ -25,11 +25,14 @@ fun AreaSection(isLoading: Boolean, areas: List<SingleAreaUI>) {
     
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SectionTitle(text = "Areas")
+        SectionTitle(
+            modifier = Modifier
+                .padding(horizontal = 16.dp),
+            text = "Recipes by area"
+        )
 
         LoadingRowScroll(isLoading = isLoading) {
             items(areas) {

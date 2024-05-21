@@ -7,15 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.keepcoding.flavorfeast.R
-import com.keepcoding.flavorfeast.ui.home.components.organism.AppBar_HomeScreen
 import com.keepcoding.flavorfeast.ui.home.components.organism.Body_HomeScreen
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     Scaffold(
-        topBar = { AppBar_HomeScreen() },
-        containerColor = colorResource(R.color.white_green)
+        containerColor = colorResource(R.color.white)
     ) {
         Body_HomeScreen(modifier = Modifier.padding(it), viewModel = viewModel)
     }

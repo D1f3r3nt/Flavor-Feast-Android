@@ -38,7 +38,7 @@ fun InfoSide(
         )
 
         if (meal.tags.isNotEmpty()) {
-            SectionTitle("Tags", 17.sp)
+            SectionTitle(text = "Tags", fontSize = 17.sp)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -50,24 +50,24 @@ fun InfoSide(
             }
         }
 
-        SectionTitle("Ingredients", 17.sp)
-        
+        SectionTitle(text = "Ingredients", fontSize = 17.sp)
+
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            meal.elements.map { 
+            meal.elements.map {
                 if (it.ingredient.isNotBlank()) {
                     IngredientRow(component = it)
                 }
             }
         }
 
-        SectionTitle("Instructions", 17.sp)
-        
+        SectionTitle(text = "Instructions", fontSize = 17.sp)
+
         Text(
             meal.instructions
-            .replace("\t", "    ")
-            .replace("\r", "\n")
+                .replace("\t", "    ")
+                .replace("\r", "\n")
         )
     }
 }

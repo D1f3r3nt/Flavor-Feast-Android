@@ -19,6 +19,7 @@ import com.keepcoding.flavorfeast.ui.home.HomeScreen
 import com.keepcoding.flavorfeast.ui.navigation.Navigation
 import com.keepcoding.flavorfeast.ui.navigation.NavigationController
 import com.keepcoding.flavorfeast.ui.search.SearchScreen
+import com.keepcoding.flavorfeast.ui.theme.FlavorFeastTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,40 +31,42 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             NavigationController.init(navController)
+            
+            FlavorFeastTheme {
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                    NavHost(navController, startDestination = Navigation.HOME_ROUTE) {
+                        composable(Navigation.HOME_ROUTE) {
+                            HomeScreen()
+                        }
 
-            Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                NavHost(navController, startDestination = Navigation.HOME_ROUTE) {
-                    composable(Navigation.HOME_ROUTE) {
-                        HomeScreen()
-                    }
+                        composable(Navigation.SEARCH_ROUTE) {
+                            SearchScreen()
+                        }
 
-                    composable(Navigation.SEARCH_ROUTE) {
-                        SearchScreen()
-                    }
-                    
-                    composable(Navigation.GALLERY_ROUTE, arguments = listOf(
-                        navArgument(Navigation.GALLERY.ARG_TYPE) {
-                            nullable = false
-                            type = NavType.StringType
-                        },
-                        navArgument(Navigation.GALLERY.ARG_NAME) {
-                            nullable = false
-                            type = NavType.StringType
-                        },
-                    )) {
-                        GalleryScreen(it)
-                    }
+                        composable(Navigation.GALLERY_ROUTE, arguments = listOf(
+                            navArgument(Navigation.GALLERY.ARG_TYPE) {
+                                nullable = false
+                                type = NavType.StringType
+                            },
+                            navArgument(Navigation.GALLERY.ARG_NAME) {
+                                nullable = false
+                                type = NavType.StringType
+                            },
+                        )) {
+                            GalleryScreen(it)
+                        }
 
-                    composable(Navigation.DETAIL_ROUTE, arguments = listOf(
-                        navArgument(Navigation.DETAIL.ARG_ID_MEAL) {
-                            nullable = false
-                            type = NavType.StringType
-                        },
-                    )) {
-                        DetailScreen(it)
+                        composable(Navigation.DETAIL_ROUTE, arguments = listOf(
+                            navArgument(Navigation.DETAIL.ARG_ID_MEAL) {
+                                nullable = false
+                                type = NavType.StringType
+                            },
+                        )) {
+                            DetailScreen(it)
+                        }
                     }
                 }
-            }
+            }            
         }
     }
 }

@@ -24,11 +24,14 @@ fun CategorySection(isLoading: Boolean, categories: List<CategoryUI>) {
     
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SectionTitle(text = "Categories")
+        SectionTitle(
+            modifier = Modifier
+                .padding(horizontal = 16.dp),
+            text = "Recipes by category"
+        )
 
         LoadingRowScroll(isLoading = isLoading) {
             items(categories) {

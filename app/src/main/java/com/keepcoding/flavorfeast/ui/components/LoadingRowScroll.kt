@@ -2,6 +2,7 @@ package com.keepcoding.flavorfeast.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyListScope
@@ -29,14 +30,15 @@ fun LoadingRowScroll(
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth(),
-                color = colorResource(R.color.black_green)
+                color = colorResource(R.color.black)
             )
         }
     } else {
         LazyRow(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            content = content
+            content = content,
+            contentPadding = PaddingValues(horizontal = 16.dp)
         )
     }
 }

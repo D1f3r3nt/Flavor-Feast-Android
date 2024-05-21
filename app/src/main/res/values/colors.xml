@@ -3,9 +3,11 @@
     <color name="white_green">#FFf2fffc</color>
     <color name="turquoise">#FF80dfc0</color>
     <color name="light_green">#FFa6ec91</color>
-    <color name="green">#FF3dd967</color>
     <color name="black_green">#FF1c4411</color>
-    <color name="grey">#656565</color>
-    <color name="black">#FF000000</color>
+    <!--    -->
+    <color name="green">#FF39E079</color>
+    <color name="grey">#FF737373</color>
+    <color name="black">#FF141414</color>
+    <color name="white_grey">#FFF5F5F5</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

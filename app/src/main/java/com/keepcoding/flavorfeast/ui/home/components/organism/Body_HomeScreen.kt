@@ -1,6 +1,7 @@
 package com.keepcoding.flavorfeast.ui.home.components.organism
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +25,7 @@ import com.keepcoding.flavorfeast.ui.home.components.molecules.AreaSection
 import com.keepcoding.flavorfeast.ui.home.components.molecules.CategorySection
 import com.keepcoding.flavorfeast.ui.home.components.molecules.IngredientsSection
 import com.keepcoding.flavorfeast.ui.home.components.molecules.RandomSection
+import com.keepcoding.flavorfeast.ui.home.components.molecules.SearchSection
 import com.keepcoding.flavorfeast.utils.controlErrors
 
 @Composable
@@ -46,16 +48,39 @@ fun Body_HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel) {
     controlErrors(context, randomState, categoriesState, areasState, ingredientsState)
 
     LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        contentPadding = PaddingValues(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(26.dp)
     ) {
         item {
+            SearchSection(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                value = "",
+                onValueChange = {}
+            )
+        }
+
+        item {
             RandomSection(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 meal = randomMeal,
                 isLoading = randomState is LoadingState,
                 onClick = {
                     viewModel.getRandomMeal()
                 }
+            )
+        }
+
+        item {
+            AreaSection(
+                areas = areas,
+                isLoading = areasState is LoadingState
+            )
+        }
+
+        item {
+            CategorySection(
+                categories = categories,
+                isLoading = categoriesState is LoadingState
             )
         }
 
@@ -69,20 +94,6 @@ fun Body_HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel) {
                         alreadyCalledIngredients = true
                     }
                 }
-            )
-        }
-
-        item {
-            CategorySection(
-                categories = categories,
-                isLoading = categoriesState is LoadingState
-            )
-        }
-
-        item {
-            AreaSection(
-                areas = areas,
-                isLoading = areasState is LoadingState
             )
         }
 
