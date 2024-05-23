@@ -43,7 +43,9 @@ fun FoodCard(
             Image(
                 painter = painter,
                 contentDescription = null,
-                contentScale = ContentScale.Crop
+                // TODO: Fix this
+                contentScale = ContentScale.Crop,
+                alignment = Alignment.Center
             )
         }
 

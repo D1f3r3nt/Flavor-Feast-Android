@@ -30,75 +30,29 @@ import com.keepcoding.flavorfeast.utils.controlErrors
 
 @Composable
 fun Body_HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel) {
-    val context = LocalContext.current
-
-    val randomMeal: MealUI? by viewModel.randomMeal.collectAsState()
-    val randomState: ViewState by viewModel.randomState.collectAsState()
-    val categories: List<CategoryUI> by viewModel.categories.collectAsState()
-    val categoriesState: ViewState by viewModel.categoriesState.collectAsState()
-    val areas: List<SingleAreaUI> by viewModel.areas.collectAsState()
-    val areasState: ViewState by viewModel.areasState.collectAsState()
-    val ingredients: List<IngredientsUI> by viewModel.ingredients.collectAsState()
-    val ingredientsState: ViewState by viewModel.ingredientsState.collectAsState()
-
-    var alreadyCalledIngredients by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    controlErrors(context, randomState, categoriesState, areasState, ingredientsState)
+    
+    val meals: List<MealUI> by viewModel.meals.collectAsState()
+    val searchText: String by viewModel.searchText.collectAsState()
 
     LazyColumn(
-        contentPadding = PaddingValues(vertical = 8.dp),
+        modifier = modifier,
+        contentPadding = PaddingValues(top = 8.dp, bottom = 20.dp),
         verticalArrangement = Arrangement.spacedBy(26.dp)
     ) {
         item {
             SearchSection(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                value = "",
-                onValueChange = {}
+                value = searchText,
+                onValueChange = viewModel::onSearchTextChange
             )
         }
-
+        
         item {
-            RandomSection(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                meal = randomMeal,
-                isLoading = randomState is LoadingState,
-                onClick = {
-                    viewModel.getRandomMeal()
-                }
-            )
-        }
-
-        item {
-            AreaSection(
-                areas = areas,
-                isLoading = areasState is LoadingState
-            )
-        }
-
-        item {
-            CategorySection(
-                categories = categories,
-                isLoading = categoriesState is LoadingState
-            )
-        }
-
-        item {
-            IngredientsSection(
-                ingredients = ingredients,
-                onFocus = {
-                    if (it.isFocused && !alreadyCalledIngredients) {
-                        viewModel.getAllIngredients()
-
-                        alreadyCalledIngredients = true
-                    }
-                }
-            )
-        }
-
-        item {
-            Spacer(modifier = Modifier.padding(vertical = 12.dp))
+            if (meals.isEmpty()) {
+                Sections_HomeScreen(viewModel)
+            } else {
+                Search_HomeScreen(meals)
+            }
         }
     }
 }

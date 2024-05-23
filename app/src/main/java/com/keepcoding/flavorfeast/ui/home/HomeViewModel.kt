@@ -32,6 +32,8 @@ class HomeViewModel @Inject constructor(
     private val _areas = MutableStateFlow<List<SingleAreaUI>>(emptyList())
     private val _ingredientsState = MutableStateFlow<ViewState>(IdleState())
     private val _ingredients = MutableStateFlow<List<IngredientsUI>>(emptyList())
+    private val _searchText = MutableStateFlow<String>("")
+    private val _meals = MutableStateFlow<List<MealUI>>(emptyList())
     
     val randomState: StateFlow<ViewState> = _randomState
     val randomMeal: StateFlow<MealUI?> = _randomMeal
@@ -41,6 +43,8 @@ class HomeViewModel @Inject constructor(
     val areas: StateFlow<List<SingleAreaUI>> = _areas
     val ingredientsState: StateFlow<ViewState> = _ingredientsState
     val ingredients: StateFlow<List<IngredientsUI>> = _ingredients
+    val searchText: StateFlow<String> = _searchText
+    val meals: StateFlow<List<MealUI>> = _meals
     
     init {
         getAllCategories()
@@ -66,6 +70,52 @@ class HomeViewModel @Inject constructor(
                 _randomState.value = ErrorState("Something went wrong")
             }
             
+        }
+    }
+
+    fun onSearchTextChange(text: String) {
+        _searchText.value = text
+
+        if (text.isNotBlank()) {
+            getByName()
+        } else {
+            _meals.value = emptyList()
+        }
+    }
+
+    fun getAllIngredients() {
+        viewModelScope.launch {
+            _ingredientsState.value = LoadingState()
+
+            val result = repository.getAllIngredients()
+
+            try {
+                val ingredients: List<IngredientsUI> = result.getOrThrow()
+
+                _ingredients.value = ingredients
+                _ingredientsState.value = IdleState()
+            } catch (_: BadRequestException) {
+                _ingredientsState.value = ErrorState("Error with the request")
+            } catch (_: NoDataException) {
+                _ingredientsState.value = ErrorState("No data in the response")
+            } catch (_ : Exception) {
+                _ingredientsState.value = ErrorState("Something went wrong")
+            }
+
+        }
+    }
+
+    private fun getByName() {
+        viewModelScope.launch {
+            val result = repository.getByName(_searchText.value)
+
+            try {
+                val meals: List<MealUI> = result.getOrThrow()
+
+                _meals.value = meals
+            } catch (_: Exception) {
+                _meals.value = emptyList()
+            }
         }
     }
 
@@ -108,28 +158,6 @@ class HomeViewModel @Inject constructor(
                 _areasState.value = ErrorState("No data in the response")
             } catch (_ : Exception) {
                 _areasState.value = ErrorState("Something went wrong")
-            }
-            
-        }
-    }
-
-    fun getAllIngredients() {
-        viewModelScope.launch {
-            _ingredientsState.value = LoadingState()
-
-            val result = repository.getAllIngredients()
-
-            try {
-                val ingredients: List<IngredientsUI> = result.getOrThrow()
-
-                _ingredients.value = ingredients
-                _ingredientsState.value = IdleState()
-            } catch (_: BadRequestException) {
-                _ingredientsState.value = ErrorState("Error with the request")
-            } catch (_: NoDataException) {
-                _ingredientsState.value = ErrorState("No data in the response")
-            } catch (_ : Exception) {
-                _ingredientsState.value = ErrorState("Something went wrong")
             }
             
         }
