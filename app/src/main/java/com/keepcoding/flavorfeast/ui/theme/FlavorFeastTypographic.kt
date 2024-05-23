@@ -12,6 +12,7 @@ val EpilogueFontFamily = FontFamily(
     Font(R.font.epilogue_bold, FontWeight.Bold),
     Font(R.font.epilogue_black, FontWeight.Black),
     Font(R.font.epilogue_thin, FontWeight.Thin),
+    Font(R.font.epilogue_medium, FontWeight.Medium),
 )
 
 val FlavorFeastTypographic = Typography(

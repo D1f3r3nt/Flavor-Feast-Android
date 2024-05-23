@@ -24,11 +24,13 @@ class GalleryViewModel @Inject constructor(
 
     private val _type = MutableStateFlow<GalleryTypes?>(null)
     private val _nameType = MutableStateFlow<String?>(null)
+    private val _newMeals = MutableStateFlow<List<SingleMealUI>>(emptyList())
     private val _meals = MutableStateFlow<List<SingleMealUI>>(emptyList())
     private val _mealsState = MutableStateFlow<ViewState>(IdleState())
 
     val type: StateFlow<GalleryTypes?> = _type
     val nameType: StateFlow<String?> = _nameType
+    val newMeals: StateFlow<List<SingleMealUI>> = _newMeals
     val meals: StateFlow<List<SingleMealUI>> = _meals
     val mealsState: StateFlow<ViewState> = _mealsState
 
@@ -53,7 +55,8 @@ class GalleryViewModel @Inject constructor(
             try {
                 val meals: List<SingleMealUI> = result.getOrThrow()
 
-                _meals.value = meals
+                _meals.value = meals.subList(5, meals.size)
+                _newMeals.value = meals.take(5)
                 _mealsState.value = IdleState()
             } catch (_: BadRequestException) {
                 _mealsState.value = ErrorState("Error with the request")
