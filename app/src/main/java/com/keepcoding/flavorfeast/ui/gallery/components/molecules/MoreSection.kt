@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.keepcoding.flavorfeast.model.SingleMealUI
-import com.keepcoding.flavorfeast.ui.components.SectionTitle
+import com.keepcoding.flavorfeast.ui.components.CustomTitle
 import com.keepcoding.flavorfeast.ui.gallery.components.atoms.GalleryRecipe
 import com.keepcoding.flavorfeast.ui.navigation.Navigation
 import com.keepcoding.flavorfeast.ui.navigation.NavigationController
@@ -26,7 +26,7 @@ fun MoreSection(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(22.dp)
     ) {
-        SectionTitle(
+        CustomTitle(
             text = "More from this group",
             modifier = Modifier
                 .padding(horizontal = 16.dp)

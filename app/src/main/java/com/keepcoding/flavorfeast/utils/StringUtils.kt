@@ -5,3 +5,8 @@ fun String.firstUpperCase(): String {
         it.uppercase()
     }
 }
+
+fun String.formatWithSortCuts(): String {
+    return this.replace("\t", "    ")
+        .replace("\r", "\n")
+}

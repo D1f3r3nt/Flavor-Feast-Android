@@ -48,7 +48,7 @@ fun RandomSection(
             } else {
                 Text(
                     text = "Surprise Me",
-                    fontSize = 15.sp,
+                    fontSize = 16.sp,
                     color = colorResource(R.color.black),
                     fontWeight = FontWeight.Bold,
                 )

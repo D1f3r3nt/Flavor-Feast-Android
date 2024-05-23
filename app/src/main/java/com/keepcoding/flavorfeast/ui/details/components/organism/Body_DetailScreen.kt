@@ -1,14 +1,19 @@
 package com.keepcoding.flavorfeast.ui.details.components.organism
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.keepcoding.flavorfeast.model.MealUI
 import com.keepcoding.flavorfeast.ui.details.DetailViewModel
-import com.keepcoding.flavorfeast.ui.details.components.molecules.InfoSide
-import com.keepcoding.flavorfeast.ui.details.components.molecules.VideoSide
+import com.keepcoding.flavorfeast.ui.details.components.molecules.InfoSection
+import com.keepcoding.flavorfeast.ui.details.components.molecules.HeaderSection
+import com.keepcoding.flavorfeast.ui.details.components.molecules.IngredientsSection
+import com.keepcoding.flavorfeast.ui.details.components.molecules.InstructionsSection
 
 @Composable
 fun Body_DetailScreen(
@@ -20,17 +25,24 @@ fun Body_DetailScreen(
 
     meal?.let {
         LazyColumn(
-            modifier = modifier
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+            contentPadding = PaddingValues(bottom = 16.dp)
         ) {
             item {
-                VideoSide(
-                    image = it.image,
-                    video = it.video,
-                )
+                HeaderSection(image = it.image)
             }
 
             item {
-                InfoSide(meal = it)
+                InfoSection(meal = it)
+            }
+            
+            item {
+                InstructionsSection(meal = it)
+            }
+
+            item {
+                IngredientsSection(meal = it)
             }
         }
     }

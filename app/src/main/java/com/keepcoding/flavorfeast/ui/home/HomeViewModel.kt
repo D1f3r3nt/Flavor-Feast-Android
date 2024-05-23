@@ -49,6 +49,7 @@ class HomeViewModel @Inject constructor(
     init {
         getAllCategories()
         getAllAreas()
+        getRandomMeal()
     }
     
     fun getRandomMeal() {

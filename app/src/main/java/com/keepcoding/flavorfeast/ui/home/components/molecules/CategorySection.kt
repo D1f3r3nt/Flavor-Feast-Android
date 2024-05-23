@@ -13,7 +13,7 @@ import com.keepcoding.flavorfeast.model.CategoryUI
 import com.keepcoding.flavorfeast.model.enums.GalleryTypes
 import com.keepcoding.flavorfeast.ui.components.FoodCard
 import com.keepcoding.flavorfeast.ui.components.LoadingRowScroll
-import com.keepcoding.flavorfeast.ui.components.SectionTitle
+import com.keepcoding.flavorfeast.ui.components.CustomTitle
 import com.keepcoding.flavorfeast.ui.navigation.Navigation
 import com.keepcoding.flavorfeast.ui.navigation.NavigationController
 
@@ -27,7 +27,7 @@ fun CategorySection(isLoading: Boolean, categories: List<CategoryUI>) {
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SectionTitle(
+        CustomTitle(
             modifier = Modifier
                 .padding(horizontal = 16.dp),
             text = "Recipes by category"

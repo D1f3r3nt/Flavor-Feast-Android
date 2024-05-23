@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,10 +18,8 @@ import com.keepcoding.flavorfeast.R
 import com.keepcoding.flavorfeast.model.enums.ErrorState
 import com.keepcoding.flavorfeast.model.enums.LoadingState
 import com.keepcoding.flavorfeast.model.enums.ViewState
-import com.keepcoding.flavorfeast.ui.details.components.organism.AppBar_DetailScreen
 import com.keepcoding.flavorfeast.ui.details.components.organism.Body_DetailScreen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
     args: NavBackStackEntry,
@@ -32,9 +29,7 @@ fun DetailScreen(
 
     DetailGateway.gateway(args, viewModel)
 
-    Scaffold(
-        topBar = { AppBar_DetailScreen(viewModel = viewModel) }
-    ) {
+    Scaffold {
         when (mealState) {
             is LoadingState -> {
                 Box(
