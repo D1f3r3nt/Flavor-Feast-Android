@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +23,7 @@ fun FindRow(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(colorResource(R.color.turquoise))
+            .background(colorResource(R.color.white_grey))
             .clickable(onClick = onClick)
             .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -31,14 +31,14 @@ fun FindRow(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
     ) {
         Text(
             text = text,
-            color = colorResource(R.color.black_green),
+            color = colorResource(R.color.black),
             fontSize = 17.sp
         )
 
         Icon(
-            imageVector = Icons.Default.ArrowForwardIos,
+            imageVector = Icons.Default.KeyboardArrowRight,
             contentDescription = null,
-            tint = colorResource(R.color.black_green)
+            tint = colorResource(R.color.black)
         )
     }
 }

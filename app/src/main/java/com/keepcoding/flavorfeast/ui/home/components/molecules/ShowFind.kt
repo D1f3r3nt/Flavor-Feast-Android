@@ -8,7 +8,9 @@ import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.keepcoding.flavorfeast.R
 import com.keepcoding.flavorfeast.model.IngredientsUI
 import com.keepcoding.flavorfeast.model.enums.GalleryTypes
 import com.keepcoding.flavorfeast.ui.home.components.atoms.FindRow
@@ -30,7 +32,9 @@ fun ShowFind(elements: List<IngredientsUI>) {
             .take(3)
             .mapIndexed { index, it ->
                 if (index > 0) {
-                    Divider()
+                    Divider(
+                        color = colorResource(R.color.grey)
+                    )
                 }
 
                 FindRow(

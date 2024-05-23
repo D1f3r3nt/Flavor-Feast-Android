@@ -1,10 +1,13 @@
 package com.keepcoding.flavorfeast.ui.home.components.atoms
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -13,6 +16,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusEvent
@@ -23,42 +27,60 @@ import com.keepcoding.flavorfeast.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchIngredient(
+fun SearchComponent(
+    modifier: Modifier = Modifier,
     value: String, 
     onValueChange: (String) -> Unit,
-    onFocus: (FocusState) -> Unit = {}
+    onFocus: (FocusState) -> Unit = {},
+    placeholder: String? = null,
 ) {
-    
+
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         placeholder = {
-            Text("Filter by Ingredients", fontSize = 17.sp)
+            if (placeholder != null) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.TopStart
+                ) {
+                    Text(
+                        text = placeholder,
+                        fontSize = 17.sp,
+                        color = colorResource(R.color.grey),
+                        maxLines = 1
+                    )
+                }
+            }
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            containerColor = colorResource(R.color.light_green),
-            cursorColor = colorResource(R.color.black_green),
-            unfocusedBorderColor = colorResource(R.color.green),
-            focusedBorderColor = colorResource(R.color.black_green),
-            focusedTrailingIconColor = colorResource(R.color.black_green),
-            unfocusedTrailingIconColor = colorResource(R.color.black_green),
-        ),
-        textStyle = LocalTextStyle.current.copy(fontSize = 17.sp),
-        modifier = Modifier
+        shape = RoundedCornerShape(24.dp),
+        modifier = modifier
+            .height(48.dp)
             .fillMaxWidth()
             .onFocusEvent(onFocus),
-        shape = RoundedCornerShape(24.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            containerColor = colorResource(R.color.white_grey),
+            cursorColor = colorResource(R.color.black),
+            unfocusedBorderColor = colorResource(R.color.white_grey),
+            focusedBorderColor = colorResource(R.color.white_grey),
+            focusedTrailingIconColor = colorResource(R.color.grey),
+            unfocusedTrailingIconColor = colorResource(R.color.grey),
+            focusedLeadingIconColor = colorResource(R.color.grey),
+            unfocusedLeadingIconColor = colorResource(R.color.grey),
+        ),
+        textStyle = LocalTextStyle.current.copy(fontSize = 17.sp),
         singleLine = true,
         maxLines = 1,
+        leadingIcon = {
+            Icon(imageVector = Icons.Default.Search, contentDescription = null)
+        },
         trailingIcon = {
             if (value.isNotEmpty()) {
-                IconButton(onClick = { 
+                IconButton(onClick = {
                     onValueChange("")
                 }) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                    Icon(imageVector = Icons.Outlined.Cancel, contentDescription = null)
                 }
-            } else {
-                Icon(imageVector = Icons.Default.Search, contentDescription = null)
             }
         }
     )

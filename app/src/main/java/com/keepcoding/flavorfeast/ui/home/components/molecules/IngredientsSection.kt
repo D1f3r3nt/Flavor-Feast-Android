@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.unit.dp
 import com.keepcoding.flavorfeast.model.IngredientsUI
-import com.keepcoding.flavorfeast.ui.home.components.atoms.SearchIngredient
+import com.keepcoding.flavorfeast.ui.components.SectionTitle
+import com.keepcoding.flavorfeast.ui.home.components.atoms.SearchComponent
 
 @Composable
 fun IngredientsSection(
@@ -24,26 +25,38 @@ fun IngredientsSection(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SearchIngredient(
-            value = filter,
-            onValueChange = {
-                filter = it
-            },
-            onFocus = onFocus
+
+        SectionTitle(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = "Ingredients to use up"
         )
 
-        ShowFind(
-            elements = if (filter.isBlank()) {
-                emptyList()
-            } else {
-                ingredients.filter {
-                    it.name.lowercase().contains(filter.lowercase())
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            SearchComponent(
+                value = filter,
+                onValueChange = {
+                    filter = it
+                },
+                onFocus = onFocus,
+            )
+
+            ShowFind(
+                elements = if (filter.isBlank()) {
+                    emptyList()
+                } else {
+                    ingredients.filter {
+                        it.name.lowercase().contains(filter.lowercase())
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
